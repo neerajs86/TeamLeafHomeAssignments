@@ -12,7 +12,7 @@ await page.getByLabel("View All Applications").click();
 //Click Leads link
 await page.locator("//p[text()='Leads']").click();
 //Click New button
-await page.getByRole("button", {name : "New"}).click();
+await page.locator("[data-target-selection-name='sfdc:StandardButton.Lead.New']").click();
 //Click Saluation dropdown and select an option
 await page.locator("[name='salutation']").click();
 await page.getByTitle("Mr.").click();
