@@ -8,7 +8,7 @@ function isAnagram(s1, s2) {
     let len2 = s2.length;
     console.log(len2);
 
-    if (len1 != len2) {
+    if (len1 !== len2) {
         return false;
     }
     else {

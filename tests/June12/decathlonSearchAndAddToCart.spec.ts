@@ -40,6 +40,7 @@ await page.locator("[data-test-id='filter-checkbox-indian_size-UK 10.5 - EU 45']
 await page.locator("//*[name()='svg' and @data-test-id='sort-bar-desktop:chevron-down-icon']").click();
 //Click 'Price (high → low)'
 await page.locator("[data-test-id='sort-option-dsi_pim_migration_price_desc']").click();
+await page.getByTestId
 
 //Added small delay for displaying items post Price filter applicable
 await page.waitForTimeout(1000);

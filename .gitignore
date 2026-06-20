@@ -8,3 +8,4 @@ node_modules/
 /playwright/.auth/
 /tests/SkipLoginFeature/
 tests/frameAlerts.spec.ts
+tests/classActivity/

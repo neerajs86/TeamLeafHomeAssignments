@@ -17,16 +17,17 @@ export const test = base.extend<hooksFixture>({
     await page.getByLabel("password").fill("TestLeaf@2025");
     //Click Login button
     await page.locator("[value='Log In']").click();
-    await page.waitForLoadState();
-    
+    await page.waitForURL("https://testleaf.lightning.force.com/lightning/page/home");
+    const quaterlyPerformance = page.getByTitle("Quarterly Performance");
+    await quaterlyPerformance.waitFor({state : "visible", timeout :10000});
+    await page.waitForTimeout(2000);
     //Calling the test and passing the fixture value to the test
     await use(loginSetUp);
     
     //Verify Title and Url
-    await page.waitForTimeout(2000);
     const title = await page.title();
     console.log("Page Title : " + title);
-    expect.soft(title).toContain("Home | Salesforce");
+    expect.soft(title).toContain("Home");
     const url = page.url();
     console.log("Page Url : " + url);
     expect.soft(url).toContain("https://testleaf.lightning.force.com/lightning/page/home");

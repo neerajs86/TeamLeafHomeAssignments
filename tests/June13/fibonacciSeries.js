@@ -17,5 +17,13 @@ function fibonacci(n) {
     }
 }
 console.log(`Fibonacci with 5th number : ${fibonacci(5)}`);
-console.log(`Fibonacci with 5th number : ${fibonacci(5)}`);
-console.log(`Fibonacci with 5th number : ${fibonacci(-2)}`);
+console.log(`Fibonacci with 6th number : ${fibonacci(5)}`);
+//console.log(`Fibonacci with negative number : ${fibonacci(-2)}`);
+let apiResponse = "Success";
+apiResponse = 200;
+//console.log((apiResponse as string).toUpperCase());
+//console.log((<string>apiResponse).toUpperCase());
+let apiResponse1 = 200;
+apiResponse1 = "Success";
+console.log(apiResponse1.toUpperCase());
+console.log(apiResponse1.toUpperCase());

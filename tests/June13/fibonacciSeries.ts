@@ -14,8 +14,20 @@ for(let i=1; i<=n; i++) {
     }
     else {
         throw new Error("Negative number is allowed");
-    }
+    }   
 }
 console.log(`Fibonacci with 5th number : ${fibonacci(5)}`);
 console.log(`Fibonacci with 6th number : ${fibonacci(5)}`);
-console.log(`Fibonacci with negative number : ${fibonacci(-2)}`);
+//console.log(`Fibonacci with negative number : ${fibonacci(-2)}`);
+
+
+let apiResponse : unknown = "Success";
+apiResponse = 200;
+//console.log((apiResponse as string).toUpperCase());
+//console.log((<string>apiResponse).toUpperCase());
+
+
+let apiResponse1 : unknown = 200;
+apiResponse1 = "Success";
+console.log((apiResponse1 as string).toUpperCase());
+console.log((<string>apiResponse1).toUpperCase());
