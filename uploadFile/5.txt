@@ -1,0 +1,32 @@
+https://www.youtube.com/watch?v=-FZo3BolyT0
+
+
+
+###Store Procedure Testing###
+show procedure status where db = 'classicmodels';
+show procedure status where Name = 'selectAllCustomers';
+
+
+Select * from customers;
+
+
+Select * from customers where city = 'Las Vegas';
+
+
+
+Select 
+(Select count(*) as 'shipped' from orders where customerNumber = 141 and status = 'Shipped') as Shipped,
+(Select count(*) as 'cancelled' from orders where customerNumber = 141 and status = 'Cancelled') as Cancelled,
+(Select count(*) as 'resolved' from orders where customerNumber = 141 and status = 'Resolved') as Resolved,
+(Select count(*) as 'disputed' from orders where customerNumber = 141 and status = 'Disputed') as Disputed,
+(Select count(*) as 'onHold' from orders where customerNumber = 141 and status = 'On Hold') as OnHold,
+(Select count(*) as 'inProcess' from orders where customerNumber = 141 and status = 'In Process') as InProcess;
+
+
+
+Select country,
+case when country = 'USA' then '2-Days Shipping'
+when country = 'Canada' then '3-Days Shipping'
+else '5-Days Shipping'
+end as shippingTime
+from customers where customerNumber = 112;

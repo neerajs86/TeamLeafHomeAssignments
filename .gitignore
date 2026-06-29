@@ -9,3 +9,8 @@ node_modules/
 /tests/SkipLoginFeature/
 tests/frameAlerts.spec.ts
 tests/classActivity/
+tests/fileDownload.spec.ts
+tests/marathonSession/
+tests/sampleDemo.spec.ts
+tests/testAnnotations.spec.ts
+LeadData/

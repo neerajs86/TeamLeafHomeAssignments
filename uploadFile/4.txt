@@ -1,0 +1,158 @@
+https://www.youtube.com/watch?v=gzZwsBWshiU
+
+Difference b/w Case Statement and Case Expression
+https://www.youtube.com/watch?v=n_0kijUi7IA
+
+********************* Case Statement ********************* 	
+Syntax :
+Case
+When Condition 1 Then Result 1;
+When Condition 2 Then Result 2;
+Else Result 3;
+End Case
+
+Example :
+Case
+When country = 'USA' Then '2-Days Shipping';
+When country = 'CANADA' Then '2-Days Shipping';
+Else  '5-Days Shipping'
+End as ShippingTime;
+
+
+
+
+********************* Case Expression ********************* 	
+Syntax :
+Case Expression
+When Value 1 Then Result 1;
+When Value 2 Then Result 2;
+Else Result 3;
+End Case
+
+Example :
+Case country
+When 'USA' Then '2-Days Shipping';
+When 'CANADA' Then '2-Days Shipping';
+Else  '5-Days Shipping'
+End as ShippingTime;
+
+
+
+
+
+use classicmodels;
+
+
+
+
+delimiter //
+create procedure selectAllCustomers()
+Begin
+Select * from customers;
+End //
+
+delimiter ;
+
+call selectAllCustomers();
+
+
+
+
+delimiter //
+create procedure selectAllCustomersByCity(IN myCity varchar(500))
+Begin
+Select * from customers where city = myCity;
+End //
+delimiter ;
+
+call selectAllCustomersByCity('Madrid');
+
+
+
+delimiter //
+create procedure selectAllCustomersByCityAndPin(IN myCity varchar(500), IN pCode varchar(500))
+Begin
+Select * from customers where city = myCity and postalCode = pCode;
+End //
+
+delimiter ;
+
+call selectAllCustomersByCityAndPin('Madrid', '28034');
+
+
+
+
+delimiter //
+create procedure get_order_by_customer(IN custNum int,
+OUT shipped int,
+OUT cancelled int,
+OUT resolved int,
+OUT disputed int,
+OUT onHold int,
+OUT inProcess int)
+Begin
+##shipped
+Select count(*) Into shipped from orders where customerNumber = custNum and status = 'Shipped';
+##cancelled
+Select count(*) Into cancelled from orders where customerNumber = custNum and status = 'Cancelled';
+##resolved
+Select count(*) Into resolved from orders where customerNumber = custNum and status = 'Resolved';
+##disputed
+Select count(*) Into disputed from orders where customerNumber = custNum and status = 'Disputed';
+##onHold
+Select count(*) Into onHold from orders where customerNumber = custNum and status = 'On Hold';
+##inProcess
+Select count(*) Into inProcess from orders where customerNumber = custNum and status = 'In Process';
+End //
+
+delimiter ;
+
+call get_order_by_customer(363, @shipped, @cancelled, @resolved, @disputed, @onHold, @inProcess);
+select @shipped, @cancelled, @resolved, @disputed, @onHold, @inProcess;
+
+
+
+##Store the value of column in Store Procedure variable
+delimiter //
+create procedure GetCustomerShipping (
+IN pCustomerNumber int,
+OUT pShipping varchar(500)
+)
+Begin
+Declare customerCountry varchar(500);
+Select country Into customerCountry from customers where customerNumber = pCustomerNumber;
+Case customerCountry 
+When 'USA' Then
+set pShipping = '2-Days Shipping';
+When 'Canada' Then
+set pShipping = '3-Days Shipping';
+Else
+set pShipping = '5-Days Shipping';
+End Case;
+End //
+
+delimiter ;
+
+call GetCustomerShipping(112, @pShipping);
+Select @pShipping;
+
+
+
+
+delimiter //
+create procedure insertIntoSupplierProducts (IN inSupplierId int, In inProductId int)
+Begin
+DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' message;
+DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' message;
+DECLARE EXIT HANFLER FOR '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+
+Insert into SupplierProducts(supplierId, productId) Values(inSupplierId, inProductId);
+
+Select count(*) from SupplierProducts where supplierId = inSupplierId;
+End
+delimiter ;
+
+call insertIntoSupplierProducts(1,1);
+call insertIntoSupplierProducts(1,2);
+call insertIntoSupplierProducts(1,3);
+call insertIntoSupplierProducts(1,3);
