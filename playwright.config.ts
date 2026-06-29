@@ -26,6 +26,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     screenshot : "on",
+    video : "retain-on-failure",
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
@@ -37,7 +38,13 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], 
+         launchOptions: {
+      args: ['--start-maximized'], 
+    }, 
+    viewport : null,
+    deviceScaleFactor: undefined,
+        },
     },
 
     {
